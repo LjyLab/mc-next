@@ -20,7 +20,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Maximize2, Minimize2, Cloud } from 'lucide-react';
+import { Moon, Sun, Maximize2, Minimize2 } from 'lucide-react';
+import { getFluentEmojiCDN } from '@lobehub/fluent-emoji';
 import { usePathname } from 'next/navigation';
 import { useLayoutSettings } from '@/hooks/use-layout-settings';
 import {
@@ -36,7 +37,7 @@ export function Header() {
   const pathname = usePathname();
   const paths = pathname.split('/').filter(Boolean);
   const { isFullWidth, toggleWidth } = useLayoutSettings();
-
+  const ghostEmoji = getFluentEmojiCDN('👻', { type: 'anim' });
   return (
     <header className="border-b bg-[var(--header-bg)]">
       <div className={cn(
@@ -46,9 +47,7 @@ export function Header() {
           : "w-full max-w-7xl mx-auto px-4 sm:px-6"
       )}>
         <div className="flex items-center gap-2 font-bold text-lg">
-          <div className="h-8 w-8 rounded-lg bg-black dark:bg-white text-white dark:text-black flex items-center justify-center">
-            <Cloud className="h-5 w-5" />
-          </div>
+          <img className="h-8 w-8 text-blue-500" src={ghostEmoji} />
           <span>梦创云端</span>
         </div>
 

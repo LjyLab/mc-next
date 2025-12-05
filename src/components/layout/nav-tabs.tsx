@@ -93,7 +93,7 @@ function NavItemDropdown({ item, isActive, baseClasses }: { item: NavItem, isAct
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen} modal={false}>
       <DropdownMenuTrigger 
-        className={cn(baseClasses, "outline-none gap-1 data-[state=open]:bg-zinc-200 dark:data-[state=open]:bg-zinc-800")}
+        className={cn(baseClasses, "outline-none gap-1 data-[state=open]:bg-zinc-200 dark:data-[state=open]:bg-zinc-800 data-[state=open]:text-foreground")}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={(e) => e.preventDefault()}

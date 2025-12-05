@@ -48,8 +48,8 @@ function MockChart({ color = 'blue' }: { color?: 'blue' | 'orange' }) {
 
       {/* X-axis labels */}
       <div className="ml-6 flex justify-between mt-1 text-[10px] text-muted-foreground">
-        <span>12h ago</span>
-        <span>3m ago</span>
+        <span>12小时前</span>
+        <span>3分钟前</span>
       </div>
     </div>
   );
@@ -65,7 +65,7 @@ function MetricCard({ title, value, subValue, color = 'blue' }: { title: string,
         <ChevronRight className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="text-xs text-muted-foreground mb-1">Invocations</div>
+        <div className="text-xs text-muted-foreground mb-1">调用次数</div>
         <div className="text-2xl font-bold">{value}</div>
         {subValue && <div className="text-xs text-muted-foreground">{subValue}</div>}
         <MockChart color={color} />
@@ -81,28 +81,28 @@ export default function ObservabilityPage() {
       <div className="rounded-lg border bg-background px-4 py-3 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
           <Sparkles className="h-4 w-4 text-yellow-500" />
-          <span className="text-sm text-foreground">Unlock anomaly alerts, custom queries, 30-day retention, and more with Pro and Observability Plus.</span>
+          <span className="text-sm text-foreground">解锁异常告警、自定义查询、30天数据保留等功能，请升级至 Pro 和 Observability Plus。</span>
         </div>
         <Button size="sm" variant="default" className="h-7 text-xs font-medium">
-          Upgrade to Pro
+          升级至 Pro
         </Button>
       </div>
 
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <h1 className="text-2xl font-semibold tracking-tight">Observability</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">可观测性</h1>
         
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="gap-2">
-                Production
+                生产环境
                 <ChevronDown className="h-3 w-3 opacity-50" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Production</DropdownMenuItem>
-              <DropdownMenuItem>Preview</DropdownMenuItem>
+              <DropdownMenuItem>生产环境</DropdownMenuItem>
+              <DropdownMenuItem>预览环境</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -110,14 +110,14 @@ export default function ObservabilityPage() {
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="gap-2">
                 <Calendar className="h-3 w-3" />
-                Last 12 hours
+                过去 12 小时
                 <ChevronDown className="h-3 w-3 opacity-50" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Last 1 hour</DropdownMenuItem>
-              <DropdownMenuItem>Last 24 hours</DropdownMenuItem>
-              <DropdownMenuItem>Last 7 days</DropdownMenuItem>
+              <DropdownMenuItem>过去 1 小时</DropdownMenuItem>
+              <DropdownMenuItem>过去 24 小时</DropdownMenuItem>
+              <DropdownMenuItem>过去 7 天</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -129,25 +129,25 @@ export default function ObservabilityPage() {
 
       {/* Charts Grid */}
       <div className="grid gap-4 md:grid-cols-2">
-        <MetricCard title="Edge Requests" value="8" />
-        <MetricCard title="Fast Data Transfer" value="101 KB" />
-        <MetricCard title="Vercel Functions" value="6" color="orange" />
+        <MetricCard title="边缘请求" value="8" />
+        <MetricCard title="快速数据传输" value="101 KB" />
+        <MetricCard title="Vercel 函数" value="6" color="orange" />
         <Card className="bg-card/50">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Middleware Invocations
+              中间件调用
             </CardTitle>
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-xs text-muted-foreground mb-1">Invocations</div>
+            <div className="text-xs text-muted-foreground mb-1">调用次数</div>
             <div className="text-2xl font-bold">0</div>
             <div className="h-32 w-full mt-4 flex items-center justify-center border-b border-l border-border ml-6">
-              <span className="text-sm text-muted-foreground">No invocations in this time range</span>
+              <span className="text-sm text-muted-foreground">在此时间范围内无调用</span>
             </div>
             <div className="ml-6 flex justify-between mt-1 text-[10px] text-muted-foreground">
-              <span>12h ago</span>
-              <span>3m ago</span>
+              <span>12小时前</span>
+              <span>3分钟前</span>
             </div>
           </CardContent>
         </Card>
@@ -159,15 +159,15 @@ export default function ObservabilityPage() {
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search..."
+            placeholder="搜索..."
             className="pl-9"
           />
         </div>
 
         <div className="rounded-md border">
           <div className="flex items-center justify-between p-3 border-b bg-muted/50 text-xs font-medium text-muted-foreground">
-            <span>Project</span>
-            <span>Requests <ChevronDown className="inline h-3 w-3" /></span>
+            <span>项目</span>
+            <span>请求数 <ChevronDown className="inline h-3 w-3" /></span>
           </div>
           <div>
              {[
