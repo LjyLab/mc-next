@@ -24,7 +24,8 @@ import {
   Eye,
   Users,
   CreditCard,
-  List
+  List,
+  LineChart
 } from 'lucide-react';
 import { useState, useRef } from 'react';
 
@@ -56,6 +57,7 @@ const navItems: NavItem[] = [
   { name: '活动', href: '/dashboard/activity', icon: <Activity className="h-4 w-4" /> },
   { name: '域名', href: '/dashboard/domains', icon: <Globe className="h-4 w-4" /> },
   { name: '用量', href: '/dashboard/usage', icon: <PieChart className="h-4 w-4" /> },
+  { name: '可观测性', href: '/dashboard/observability', icon: <LineChart className="h-4 w-4" /> },
   { 
     name: '设置', 
     href: '/dashboard/settings',
