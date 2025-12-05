@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Users, Settings, Box } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Button, buttonVariants } from '@/components/ui/button';
 
 const menuItems = [
   {
@@ -35,8 +34,8 @@ export function Sidebar() {
           <span className="">后台管理系统</span>
         </Link>
       </div>
-      <div className="flex-1 overflow-auto py-2">
-        <nav className="grid items-start px-2 text-sm font-medium lg:px-4 gap-1">
+      <div className="flex-1 overflow-auto py-4">
+        <nav className="grid items-start px-4 text-sm font-medium gap-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -46,11 +45,11 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  buttonVariants({ variant: 'ghost' }),
-                  'w-full justify-start gap-2 px-3',
+                  "group flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  "hover:bg-zinc-800 hover:text-white",
                   isActive
-                    ? 'bg-accent text-accent-foreground font-medium'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? "bg-zinc-800 text-white"
+                    : "text-zinc-400"
                 )}
               >
                 <Icon className="h-4 w-4" />

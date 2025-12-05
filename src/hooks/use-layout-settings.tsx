@@ -5,6 +5,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 type LayoutSettingsContextType = {
   isFullWidth: boolean;
   toggleWidth: () => void;
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
 };
 
 const LayoutSettingsContext = createContext<LayoutSettingsContextType | undefined>(
@@ -17,11 +19,16 @@ export function LayoutSettingsProvider({
   children: React.ReactNode;
 }) {
   const [isFullWidth, setIsFullWidth] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   useEffect(() => {
-    const saved = localStorage.getItem('layout-width-preference');
-    if (saved) {
-      setIsFullWidth(saved === 'full');
+    const savedWidth = localStorage.getItem('layout-width-preference');
+    if (savedWidth) {
+      setIsFullWidth(savedWidth === 'full');
+    }
+    const savedSidebar = localStorage.getItem('layout-sidebar-preference');
+    if (savedSidebar) {
+      setIsSidebarOpen(savedSidebar === 'open');
     }
   }, []);
 
@@ -33,8 +40,16 @@ export function LayoutSettingsProvider({
     });
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => {
+      const newValue = !prev;
+      localStorage.setItem('layout-sidebar-preference', newValue ? 'open' : 'closed');
+      return newValue;
+    });
+  };
+
   return (
-    <LayoutSettingsContext.Provider value={{ isFullWidth, toggleWidth }}>
+    <LayoutSettingsContext.Provider value={{ isFullWidth, toggleWidth, isSidebarOpen, toggleSidebar }}>
       {children}
     </LayoutSettingsContext.Provider>
   );

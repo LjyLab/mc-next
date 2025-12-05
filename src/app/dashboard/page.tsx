@@ -1,125 +1,104 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ProjectCard } from "@/components/ProjectCard";
+import { Search, LayoutGrid, List } from "lucide-react";
+
+const projects = [
+  {
+    id: 1,
+    name: "nextjs-commerce",
+    domain: "commerce.vercel.app",
+    repo: "vercel/nextjs-commerce",
+    branch: "main",
+    lastCommit: "Update dependency next to v14.1.0",
+    timeAgo: "2m ago",
+    status: "ready" as const,
+  },
+  {
+    id: 2,
+    name: "ai-chatbot-starter",
+    domain: "ai-chat.vercel.app",
+    repo: "vercel/ai-chatbot",
+    branch: "main",
+    lastCommit: "fix: streaming response issues",
+    timeAgo: "1h ago",
+    status: "building" as const,
+  },
+  {
+    id: 3,
+    name: "image-gallery",
+    domain: "gallery-demo.vercel.app",
+    repo: "vercel/image-gallery",
+    branch: "develop",
+    lastCommit: "feat: add cloudinary support",
+    timeAgo: "3h ago",
+    status: "ready" as const,
+  },
+  {
+    id: 4,
+    name: "platforms-starter-kit",
+    domain: "platforms.vercel.app",
+    repo: "vercel/platforms",
+    branch: "main",
+    lastCommit: "chore: update middleware matcher",
+    timeAgo: "5h ago",
+    status: "error" as const,
+  },
+  {
+    id: 5,
+    name: "virtual-event-starter",
+    domain: "virtual-event.vercel.app",
+    repo: "vercel/virtual-event-starter",
+    branch: "main",
+    lastCommit: "docs: update README deployment steps",
+    timeAgo: "1d ago",
+    status: "ready" as const,
+  },
+  {
+    id: 6,
+    name: "next-rsc-demo",
+    domain: "rsc-demo.vercel.app",
+    repo: "vercel/next-rsc-demo",
+    branch: "main",
+    lastCommit: "refactor: use server actions",
+    timeAgo: "2d ago",
+    status: "ready" as const,
+  },
+];
 
 export default function DashboardPage() {
-  const loginLogs = [
-    { id: 1, user: "张三", ip: "192.168.1.1", location: "北京", time: "2024-03-20 10:30:00", status: "成功" },
-    { id: 2, user: "李四", ip: "192.168.1.2", location: "上海", time: "2024-03-20 10:25:00", status: "成功" },
-    { id: 3, user: "王五", ip: "192.168.1.3", location: "广州", time: "2024-03-20 10:20:00", status: "失败" },
-    { id: 4, user: "赵六", ip: "192.168.1.4", location: "深圳", time: "2024-03-20 10:15:00", status: "成功" },
-    { id: 5, user: "管理员", ip: "192.168.1.5", location: "杭州", time: "2024-03-20 10:10:00", status: "成功" },
-  ];
-
   return (
     <div className="flex flex-col gap-6">
+      {/* Toolbar */}
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">工作台</h1>
+        <div className="relative w-full max-w-sm">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666]" />
+          <Input
+            placeholder="Search repositories..."
+            className="h-10 border-[#333] bg-black pl-9 text-white placeholder:text-[#666] focus-visible:ring-1 focus-visible:ring-white focus-visible:border-transparent"
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center rounded-md border border-[#333] bg-black p-1">
+             <Button variant="ghost" size="icon" className="h-7 w-7 rounded-sm hover:bg-[#333]">
+                <LayoutGrid className="h-4 w-4 text-white" />
+             </Button>
+             <Button variant="ghost" size="icon" className="h-7 w-7 rounded-sm hover:bg-[#333]">
+                <List className="h-4 w-4 text-[#666]" />
+             </Button>
+          </div>
+          <Button className="h-10 bg-white px-4 text-black hover:bg-[#ccc] font-medium transition-colors">
+            Add New...
+          </Button>
+        </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle>系统公告</CardTitle>
-            <CardDescription>
-              请仔细阅读以下重要通知，这些内容关乎您的日常工作流程和系统安全。
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-              <p>
-                尊敬的用户，系统将于本周六凌晨 2:00 进行例行维护，预计耗时 2 小时。
-                在此期间，后台管理系统将暂停服务，请提前做好数据保存工作。
-                我们将对数据库进行优化，并修复上周反馈的几个已知问题。
-              </p>
-              <p>
-                另外，新的权限管理模块已上线测试。
-                该模块引入了更细粒度的角色控制，支持按部门和职位分配数据访问权限。
-                如果您在使用过程中遇到任何问题，或有任何改进建议，请通过工单系统反馈给技术团队。
-              </p>
-              <p>
-                为了加强账户安全，我们建议所有管理员开启双因素认证 (2FA)。
-                您可以在“个人设置”页面找到相关选项。感谢您的配合！
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="col-span-3">
-          <CardHeader>
-            <CardTitle>快速概览</CardTitle>
-            <CardDescription>本月关键数据指标</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-8">
-              <div className="flex items-center">
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none">总用户数</p>
-                  <p className="text-sm text-muted-foreground">
-                    较上月增长 +20.1%
-                  </p>
-                </div>
-                <div className="ml-auto font-medium">1,234</div>
-              </div>
-              <div className="flex items-center">
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none">活跃用户</p>
-                  <p className="text-sm text-muted-foreground">
-                    较上月增长 +10.5%
-                  </p>
-                </div>
-                <div className="ml-auto font-medium">890</div>
-              </div>
-              <div className="flex items-center">
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none">系统负载</p>
-                  <p className="text-sm text-muted-foreground">
-                    运行状态良好
-                  </p>
-                </div>
-                <div className="ml-auto font-medium">24%</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Project Grid */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} {...project} />
+        ))}
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>最近登录日志</CardTitle>
-          <CardDescription>
-            查看最近系统的访问记录，这在宽屏模式下查看效果更佳。
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>用户</TableHead>
-                <TableHead>IP 地址</TableHead>
-                <TableHead>登录地点</TableHead>
-                <TableHead>登录时间</TableHead>
-                <TableHead>状态</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {loginLogs.map((log) => (
-                <TableRow key={log.id}>
-                  <TableCell className="font-medium">{log.user}</TableCell>
-                  <TableCell>{log.ip}</TableCell>
-                  <TableCell>{log.location}</TableCell>
-                  <TableCell>{log.time}</TableCell>
-                  <TableCell>
-                    <Badge variant={log.status === "成功" ? "default" : "destructive"}>
-                      {log.status}
-                    </Badge>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
     </div>
   );
 }

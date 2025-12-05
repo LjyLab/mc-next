@@ -37,13 +37,21 @@ export function Header() {
   const { isFullWidth, toggleWidth } = useLayoutSettings();
 
   return (
-    <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-      <MobileSidebar />
+    <header className="flex h-16 items-center gap-4 border-b bg-background px-4 lg:px-6">
+      <div className="flex items-center gap-2 font-bold text-lg">
+        <div className="h-6 w-6 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center text-xs">
+          V
+        </div>
+        <span>Vercel</span>
+      </div>
+
+      <div className="hidden h-6 w-px bg-border md:block mx-2" />
+      
       <div className="w-full flex-1">
         <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/dashboard">后台管理系统</BreadcrumbLink>
+              <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
             </BreadcrumbItem>
             {paths.slice(1).map((path) => (
                <div key={path} className="flex items-center">
