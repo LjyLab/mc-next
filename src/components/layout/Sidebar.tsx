@@ -7,17 +7,17 @@ import { cn } from '@/lib/utils';
 
 const menuItems = [
   {
-    title: 'Dashboard',
+    title: '仪表盘',
     href: '/dashboard',
     icon: LayoutDashboard,
   },
   {
-    title: 'User Management',
+    title: '用户管理',
     href: '/dashboard/users',
     icon: Users,
   },
   {
-    title: 'System Settings',
+    title: '系统设置',
     href: '/dashboard/settings',
     icon: Settings,
   },
@@ -27,11 +27,11 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-full flex-col border-r bg-card">
+    <div className="flex h-full flex-col bg-card">
       <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <Box className="h-6 w-6" />
-          <span className="">Admin Panel</span>
+          <span className="">后台管理系统</span>
         </Link>
       </div>
       <div className="flex-1 overflow-auto py-2">
