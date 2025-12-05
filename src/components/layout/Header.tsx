@@ -1,14 +1,7 @@
 'use client';
 
 import { MobileSidebar } from './MobileSidebar';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
+import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +15,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from 'next-themes';
 import { Moon, Sun, Maximize2, Minimize2 } from 'lucide-react';
 import { getFluentEmojiCDN } from '@lobehub/fluent-emoji';
-import { usePathname } from 'next/navigation';
 import { useLayoutSettings } from '@/hooks/use-layout-settings';
 import {
   Tooltip,
@@ -34,8 +26,6 @@ import { cn } from '@/lib/utils';
 
 export function Header() {
   const { setTheme, theme } = useTheme();
-  const pathname = usePathname();
-  const paths = pathname.split('/').filter(Boolean);
   const { isFullWidth, toggleWidth } = useLayoutSettings();
   const ghostEmoji = getFluentEmojiCDN('👻', { type: 'anim' });
   return (
@@ -53,23 +43,12 @@ export function Header() {
 
         <div className="hidden h-6 w-px bg-border md:block mx-2" />
         
-        <div className="w-full flex-1">
-          <Breadcrumb className="hidden md:flex">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
-              </BreadcrumbItem>
-              {paths.slice(1).map((path) => (
-                 <div key={path} className="flex items-center">
-                   <BreadcrumbSeparator />
-                   <BreadcrumbItem>
-                     <BreadcrumbPage className="capitalize">{path}</BreadcrumbPage>
-                   </BreadcrumbItem>
-                 </div>
-              ))}
-            </BreadcrumbList>
-          </Breadcrumb>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-muted-foreground">控制台</span>
+          <Badge variant="outline" className="text-xs bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700">商业版</Badge>
         </div>
+
+        <div className="w-full flex-1" />
         
         <div className="flex items-center gap-2">
           <TooltipProvider>
