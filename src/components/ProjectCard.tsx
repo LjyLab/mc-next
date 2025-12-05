@@ -23,7 +23,7 @@ export function ProjectCard({
   status,
 }: ProjectCardProps) {
   return (
-    <Card className="group flex flex-col border border-border bg-card text-card-foreground shadow-none transition-colors duration-200 hover:border-foreground/50 dark:hover:border-white rounded-lg">
+    <Card className="group flex flex-col border border-border bg-card text-card-foreground shadow-none transition-colors duration-200 hover:border-zinc-600 rounded-lg">
       <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2 pt-6 px-6">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-md bg-muted text-foreground border border-border">

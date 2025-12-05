@@ -3,10 +3,19 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
-import { Sidebar } from './Sidebar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+
+const navItems = [
+  { name: 'Overview', href: '/dashboard' },
+  { name: 'Integrations', href: '/dashboard/integrations' },
+  { name: 'Activity', href: '/dashboard/activity' },
+  { name: 'Domains', href: '/dashboard/domains' },
+  { name: 'Usage', href: '/dashboard/usage' },
+  { name: 'Settings', href: '/dashboard/settings' },
+];
 
 export function MobileSidebar() {
   const [open, setOpen] = useState(false);
@@ -21,7 +30,7 @@ export function MobileSidebar() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           className="shrink-0 md:hidden"
         >
@@ -29,8 +38,21 @@ export function MobileSidebar() {
           <span className="sr-only">Toggle navigation menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="flex flex-col p-0">
-        <Sidebar />
+      <SheetContent side="left" className="flex flex-col p-6">
+        <nav className="flex flex-col gap-4">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-foreground",
+                pathname === item.href ? "text-foreground font-bold" : "text-muted-foreground"
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
       </SheetContent>
     </Sheet>
   );

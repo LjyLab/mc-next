@@ -72,22 +72,22 @@ export default function DashboardPage() {
       {/* Toolbar */}
       <div className="flex items-center justify-between">
         <div className="relative w-full max-w-sm">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666]" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search repositories..."
-            className="h-10 border-[#333] bg-black pl-9 text-white placeholder:text-[#666] focus-visible:ring-1 focus-visible:ring-white focus-visible:border-transparent"
+            className="h-10 pl-9 bg-background border-input text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:border-input"
           />
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center rounded-md border border-[#333] bg-black p-1">
-             <Button variant="ghost" size="icon" className="h-7 w-7 rounded-sm hover:bg-[#333]">
-                <LayoutGrid className="h-4 w-4 text-white" />
+          <div className="flex items-center rounded-md border border-input bg-background p-1">
+             <Button variant="ghost" size="icon" className="h-7 w-7 rounded-sm hover:bg-muted">
+                <LayoutGrid className="h-4 w-4 text-foreground" />
              </Button>
-             <Button variant="ghost" size="icon" className="h-7 w-7 rounded-sm hover:bg-[#333]">
-                <List className="h-4 w-4 text-[#666]" />
+             <Button variant="ghost" size="icon" className="h-7 w-7 rounded-sm hover:bg-muted">
+                <List className="h-4 w-4 text-muted-foreground" />
              </Button>
           </div>
-          <Button className="h-10 bg-white px-4 text-black hover:bg-[#ccc] font-medium transition-colors">
+          <Button className="h-10 font-medium px-4">
             Add New...
           </Button>
         </div>

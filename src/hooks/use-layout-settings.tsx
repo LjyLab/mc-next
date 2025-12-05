@@ -1,12 +1,11 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import Cookies from 'js-cookie';
 
 type LayoutSettingsContextType = {
   isFullWidth: boolean;
   toggleWidth: () => void;
-  isSidebarOpen: boolean;
-  toggleSidebar: () => void;
 };
 
 const LayoutSettingsContext = createContext<LayoutSettingsContextType | undefined>(
@@ -15,41 +14,23 @@ const LayoutSettingsContext = createContext<LayoutSettingsContextType | undefine
 
 export function LayoutSettingsProvider({
   children,
+  initialLayout,
 }: {
   children: React.ReactNode;
+  initialLayout: boolean;
 }) {
-  const [isFullWidth, setIsFullWidth] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  useEffect(() => {
-    const savedWidth = localStorage.getItem('layout-width-preference');
-    if (savedWidth) {
-      setIsFullWidth(savedWidth === 'full');
-    }
-    const savedSidebar = localStorage.getItem('layout-sidebar-preference');
-    if (savedSidebar) {
-      setIsSidebarOpen(savedSidebar === 'open');
-    }
-  }, []);
+  const [isFullWidth, setIsFullWidth] = useState(initialLayout);
 
   const toggleWidth = () => {
     setIsFullWidth((prev) => {
       const newValue = !prev;
-      localStorage.setItem('layout-width-preference', newValue ? 'full' : 'narrow');
-      return newValue;
-    });
-  };
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => {
-      const newValue = !prev;
-      localStorage.setItem('layout-sidebar-preference', newValue ? 'open' : 'closed');
+      Cookies.set('layout-width', newValue ? 'full' : 'narrow', { expires: 365 });
       return newValue;
     });
   };
 
   return (
-    <LayoutSettingsContext.Provider value={{ isFullWidth, toggleWidth, isSidebarOpen, toggleSidebar }}>
+    <LayoutSettingsContext.Provider value={{ isFullWidth, toggleWidth }}>
       {children}
     </LayoutSettingsContext.Provider>
   );

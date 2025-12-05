@@ -18,7 +18,7 @@ export function ContextNav() {
 
   return (
     <div className="border-b bg-background overflow-x-auto">
-      <div className="flex h-12 items-center gap-6 px-4 lg:px-6">
+      <div className="flex h-12 items-center gap-2 px-4 lg:px-6">
         {navItems.map((item) => {
           // Exact match for dashboard, prefix match for others if needed, 
           // but here strict match or sub-path match logic might be needed.
@@ -30,10 +30,10 @@ export function ContextNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "text-sm font-medium transition-colors h-full flex items-center border-b-2",
+                "text-sm font-medium transition-colors px-3 py-1.5 rounded-md",
                 isActive
-                  ? "border-primary text-foreground"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
               {item.name}
