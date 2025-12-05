@@ -15,7 +15,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       <main
         className={cn(
           'flex flex-1 flex-col transition-all duration-300 ease-in-out',
-          isFullWidth ? 'w-full p-6' : 'container mx-auto py-8 px-4 md:px-6'
+          isFullWidth 
+            ? 'w-full px-4 sm:px-6 py-6' 
+            : 'w-full max-w-7xl mx-auto px-4 sm:px-6 py-8'
         )}
       >
         {children}
