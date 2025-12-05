@@ -29,7 +29,7 @@ export function Header() {
   const { isFullWidth, toggleWidth } = useLayoutSettings();
   const ghostEmoji = getFluentEmojiCDN('👻', { type: 'anim' });
   return (
-    <header className="border-b bg-[var(--header-bg)]">
+    <header className="border-b bg-(--header-bg)">
       <div className={cn(
         "flex h-16 items-center gap-4 transition-all duration-300 ease-in-out",
         isFullWidth 
@@ -93,7 +93,7 @@ export function Header() {
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-[var(--header-bg)]">
+            <DropdownMenuContent align="end" className="bg-(--header-bg)">
               <DropdownMenuLabel>我的账户</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>设置</DropdownMenuItem>
