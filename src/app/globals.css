@@ -86,9 +86,9 @@
   --header-bg: #0a0a0a;
   --background: #000000; /* Pure Black */
   --foreground: #ededed; /* High contrast text */
-  --card: #000000; /* Black card background */
+  --card: #0D0D0D; /* Black card background */
   --card-foreground: #ededed;
-  --popover: #000000;
+  --popover: #0D0D0D;
   --popover-foreground: #ededed;
   --primary: #ededed;
   --primary-foreground: #000000;

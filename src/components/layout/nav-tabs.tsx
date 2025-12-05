@@ -105,7 +105,7 @@ function NavItemDropdown({ item, isActive, baseClasses }: { item: NavItem, isAct
       <DropdownMenuContent 
         align="start" 
         sideOffset={8}
-        className="w-48 bg-[var(--header-bg)]"
+        className="w-48"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

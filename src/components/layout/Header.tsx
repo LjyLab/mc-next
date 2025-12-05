@@ -13,7 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Maximize2, Minimize2 } from 'lucide-react';
+import { Moon, Sun, Maximize2, Minimize2, Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from 'lucide-react';
 import { getFluentEmojiCDN } from '@lobehub/fluent-emoji';
 import { useLayoutSettings } from '@/hooks/use-layout-settings';
 import {
@@ -85,21 +85,45 @@ export function Header() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <Avatar>
-                  <AvatarImage src="" alt="User" />
-                  <AvatarFallback>AD</AvatarFallback>
+              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="/avatars/shadcn.jpg" alt="@shadcn" />
+                  <AvatarFallback>SC</AvatarFallback>
                 </Avatar>
-                <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-(--header-bg)">
-              <DropdownMenuLabel>我的账户</DropdownMenuLabel>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">shadcn</p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    m@example.com
+                  </p>
+                </div>
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>设置</DropdownMenuItem>
-              <DropdownMenuItem>支持</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Sparkles className="mr-2 h-4 w-4" />
+                <span>Upgrade to Pro</span>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>退出登录</DropdownMenuItem>
+              <DropdownMenuItem>
+                <BadgeCheck className="mr-2 h-4 w-4" />
+                <span>Account</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <CreditCard className="mr-2 h-4 w-4" />
+                <span>Billing</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Bell className="mr-2 h-4 w-4" />
+                <span>Notifications</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Log out</span>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
