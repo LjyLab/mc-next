@@ -71,12 +71,8 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-6">
       {/* Toolbar */}
       <div className="flex items-center justify-between">
-        <div className="relative w-full max-w-sm">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search repositories..."
-            className="h-10 pl-9 bg-background border-input text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:border-input"
-          />
+        <div className="w-full max-w-sm">
+          <Input placeholder="Search repositories..." />
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center rounded-md border border-input bg-background p-1">
@@ -87,7 +83,7 @@ export default function DashboardPage() {
                 <List className="h-4 w-4 text-muted-foreground" />
              </Button>
           </div>
-          <Button className="h-10 font-medium px-4">
+          <Button className="font-medium px-4">
             Add New...
           </Button>
         </div>
