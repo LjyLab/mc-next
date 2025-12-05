@@ -47,7 +47,7 @@
 :root {
   --ds-background-100: 0 0% 4%;
   --header-bg: #ffffff;
-  --radius: 0.5rem; /* 8px */
+  --radius: 0.375rem; /* 6px */
   --background: #ffffff;
   --foreground: #000000;
   --card: #ffffff;
@@ -56,11 +56,11 @@
   --popover-foreground: #000000;
   --primary: #000000;
   --primary-foreground: #ffffff;
-  --secondary: #fafafa;
+  --secondary: #f4f4f5;
   --secondary-foreground: #000000;
   --muted: #f4f4f5;
   --muted-foreground: #666666;
-  --accent: #fafafa;
+  --accent: #f4f4f5;
   --accent-foreground: #000000;
   --destructive: #ef4444;
   --border: #e5e7eb;
@@ -92,11 +92,11 @@
   --popover-foreground: #ededed;
   --primary: #ededed;
   --primary-foreground: #000000;
-  --secondary: #000000; /* Black secondary */
+  --secondary: #1f1f1f; /* Slightly lighter than black */
   --secondary-foreground: #ededed;
   --muted: #111111;
   --muted-foreground: #888888; /* Medium gray for meta info */
-  --accent: #111111; /* Very subtle accent */
+  --accent: #27272a; /* Zinc 800 - Visible hover */
   --accent-foreground: #ededed;
   --destructive: #ef4444;
   --border: #333333; /* Dark gray border */

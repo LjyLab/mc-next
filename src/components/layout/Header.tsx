@@ -20,7 +20,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Maximize2, Minimize2 } from 'lucide-react';
+import { Moon, Sun, Maximize2, Minimize2, Cloud } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useLayoutSettings } from '@/hooks/use-layout-settings';
 import {
@@ -46,10 +46,10 @@ export function Header() {
           : "w-full max-w-7xl mx-auto px-4 sm:px-6"
       )}>
         <div className="flex items-center gap-2 font-bold text-lg">
-          <div className="h-6 w-6 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center text-xs">
-            V
+          <div className="h-8 w-8 rounded-lg bg-black dark:bg-white text-white dark:text-black flex items-center justify-center">
+            <Cloud className="h-5 w-5" />
           </div>
-          <span>Vercel</span>
+          <span>梦创云端</span>
         </div>
 
         <div className="hidden h-6 w-px bg-border md:block mx-2" />
