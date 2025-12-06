@@ -70,11 +70,11 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6">
       {/* Toolbar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="w-full max-w-sm">
           <Input placeholder="Search repositories..." />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
           <div className="flex items-center rounded-md border border-input bg-background p-1">
              <Button variant="ghost" size="icon" className="h-7 w-7 rounded-sm hover:bg-muted">
                 <LayoutGrid className="h-4 w-4 text-foreground" />

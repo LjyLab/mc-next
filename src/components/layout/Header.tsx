@@ -13,7 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Maximize2, Minimize2, Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from 'lucide-react';
+import { Moon, Sun, Maximize2, Minimize2, Sparkles, BadgeCheck, CreditCard, Bell, LogOut, GalleryHorizontal } from 'lucide-react';
 import { getFluentEmojiCDN } from '@lobehub/fluent-emoji';
 import { useLayoutSettings } from '@/hooks/use-layout-settings';
 import {
@@ -36,15 +36,15 @@ export function Header() {
           ? "w-full px-4 sm:px-6" 
           : "w-full max-w-7xl mx-auto px-4 sm:px-6"
       )}>
-        <div className="flex items-center gap-2 font-bold text-lg">
+        <div className="flex items-center gap-2 font-bold text-lg whitespace-nowrap">
           <img className="h-8 w-8 text-blue-500" src={ghostEmoji} />
           <span>梦创云端</span>
         </div>
 
         <div className="hidden h-6 w-px bg-border md:block mx-2" />
         
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-muted-foreground">控制台</span>
+        <div className="flex items-center gap-2 whitespace-nowrap">
+          <span className="text-sm font-medium text-muted-foreground hidden sm:inline-block">控制台</span>
           <Badge variant="outline" className="text-xs bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700">商业版</Badge>
         </div>
 
@@ -58,12 +58,9 @@ export function Header() {
                   variant="ghost"
                   size="icon"
                   onClick={toggleWidth}
+                  className="hidden sm:inline-flex"
                 >
-                  {isFullWidth ? (
-                    <Minimize2 className="h-[1.2rem] w-[1.2rem]" />
-                  ) : (
-                    <Maximize2 className="h-[1.2rem] w-[1.2rem]" />
-                  )}
+                  <GalleryHorizontal className="h-[1.2rem] w-[1.2rem]" />
                   <span className="sr-only">切换全屏/居中模式</span>
                 </Button>
               </TooltipTrigger>
