@@ -28,6 +28,7 @@ import {
   LineChart
 } from 'lucide-react';
 import { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 type NavChildItem = 
   | { type: 'item'; name: string; href: string; icon?: React.ReactNode }
@@ -101,6 +102,13 @@ function NavItemDropdown({ item, isActive, baseClasses }: { item: NavItem, isAct
         {item.icon}
         <span>{item.name}</span>
         <ChevronDown className="h-3 w-3 opacity-50 ml-0.5" />
+        {isActive && (
+          <motion.div
+            layoutId="nav-underline"
+            className="absolute left-0 right-0 bottom-[-9px] h-[4px] bg-foreground rounded-t-sm z-10"
+            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+          />
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="start" 
@@ -156,7 +164,7 @@ export function NavTabs() {
           const baseClasses = cn(
             "text-sm font-medium rounded-md px-3 h-8 flex items-center transition-all relative whitespace-nowrap gap-2",
             isActive
-              ? "text-foreground after:absolute after:left-0 after:right-0 after:bottom-[-9px] after:h-[2px] after:bg-foreground after:content-['']"
+              ? "text-foreground"
               : "text-muted-foreground hover:text-foreground hover:bg-zinc-200 dark:hover:bg-zinc-800"
           );
 
@@ -172,6 +180,13 @@ export function NavTabs() {
             >
               {item.icon}
               <span>{item.name}</span>
+              {isActive && (
+                <motion.div
+                  layoutId="nav-underline"
+                  className="absolute left-0 right-0 bottom-[-9px] h-[4px] bg-foreground rounded-t-sm z-10"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
             </Link>
           );
         })}

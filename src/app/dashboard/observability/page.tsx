@@ -4,21 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
   ChevronDown,
-  MoreHorizontal,
-  Calendar,
   Search,
   ChevronRight,
   ChevronLeft,
-  Sparkles,
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 function MockChart({ color = 'blue' }: { color?: 'blue' | 'orange' }) {
   const strokeColor = color === 'blue' ? '#3b82f6' : '#f97316'; // blue-500 : orange-500
@@ -77,56 +67,6 @@ function MetricCard({ title, value, subValue, color = 'blue' }: { title: string,
 export default function ObservabilityPage() {
   return (
     <div className="space-y-6">
-      {/* Banner */}
-      <div className="rounded-lg border bg-background px-4 py-3 flex items-center justify-between shadow-sm">
-        <div className="flex items-center gap-3">
-          <Sparkles className="h-4 w-4 text-yellow-500" />
-          <span className="text-sm text-foreground">解锁异常告警、自定义查询、30天数据保留等功能，请升级至 Pro 和 Observability Plus。</span>
-        </div>
-        <Button size="sm" variant="default" className="h-7 text-xs font-medium">
-          升级至 Pro
-        </Button>
-      </div>
-
-      {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <h1 className="text-2xl font-semibold tracking-tight">可观测性</h1>
-        
-        <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="gap-2">
-                生产环境
-                <ChevronDown className="h-3 w-3 opacity-50" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>生产环境</DropdownMenuItem>
-              <DropdownMenuItem>预览环境</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Calendar className="h-3 w-3" />
-                过去 12 小时
-                <ChevronDown className="h-3 w-3 opacity-50" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>过去 1 小时</DropdownMenuItem>
-              <DropdownMenuItem>过去 24 小时</DropdownMenuItem>
-              <DropdownMenuItem>过去 7 天</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Button variant="outline" size="icon" className="h-8 w-8">
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-
       {/* Charts Grid */}
       <div className="grid gap-4 md:grid-cols-2">
         <MetricCard title="边缘请求" value="8" />
@@ -206,22 +146,5 @@ export default function ObservabilityPage() {
         </div>
       </div>
     </div>
-  );
-}
-
-function SparklesIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-    >
-      <path
-        fillRule="evenodd"
-        d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813a3.75 3.75 0 002.576-2.576l.813-2.846A.75.75 0 019 4.5zM9 15a.75.75 0 01.75.75v1.5h1.5a.75.75 0 010 1.5h-1.5v1.5a.75.75 0 01-1.5 0v-1.5h-1.5a.75.75 0 010-1.5h1.5v-1.5A.75.75 0 019 15z"
-        clipRule="evenodd"
-      />
-    </svg>
   );
 }

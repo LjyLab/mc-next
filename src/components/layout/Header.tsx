@@ -13,7 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Maximize2, Minimize2, Sparkles, BadgeCheck, CreditCard, Bell, LogOut, GalleryHorizontal } from 'lucide-react';
+import { Moon, Sun, Maximize2, Minimize2, Sparkles, BadgeCheck, CreditCard, Bell, LogOut, GalleryHorizontal, BadgeCheckIcon } from 'lucide-react';
 import { getFluentEmojiCDN } from '@lobehub/fluent-emoji';
 import { useLayoutSettings } from '@/hooks/use-layout-settings';
 import {
@@ -45,7 +45,14 @@ export function Header() {
         
         <div className="flex items-center gap-2 whitespace-nowrap">
           <span className="text-sm font-medium text-muted-foreground hidden sm:inline-block">控制台</span>
-          <Badge variant="outline" className="text-xs bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700">商业版</Badge>
+          {/* <Badge variant="outline" className="text-xs bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700">商业版</Badge> */}
+          <Badge
+            variant="secondary"
+            className="bg-blue-500 text-white dark:bg-blue-600"
+          >
+            <BadgeCheckIcon />
+            旗舰版
+        </Badge>
         </div>
 
         <div className="w-full flex-1" />

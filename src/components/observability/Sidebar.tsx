@@ -3,65 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import {
-  LayoutDashboard,
-  Search,
-  Book,
-  AlertTriangle,
-  Zap,
-  Globe,
-  Server,
-  GitMerge,
-  Box,
-  Network,
-  ArrowRightLeft,
-  Image as ImageIcon,
-  RefreshCw,
-  Repeat,
-  LayoutGrid,
-  Sparkles,
-  Database,
-} from 'lucide-react';
-
-const sidebarGroups = [
-  {
-    title: null,
-    items: [
-      { name: '概览', href: '/dashboard/observability', icon: LayoutDashboard },
-      { name: '查询', href: '/dashboard/observability/query', icon: Search },
-      { name: '笔记', href: '/dashboard/observability/notebooks', icon: Book },
-      { name: '告警', href: '/dashboard/observability/alerts', icon: AlertTriangle, badge: 'Beta' },
-    ],
-  },
-  {
-    title: '计算',
-    items: [
-      { name: '函数', href: '/dashboard/observability/functions', icon: Zap },
-      { name: '外部 API', href: '/dashboard/observability/external-apis', icon: Globe },
-      { name: '中间件', href: '/dashboard/observability/middleware', icon: Server },
-      { name: '工作流', href: '/dashboard/observability/workflows', icon: GitMerge, badge: 'Beta' },
-      { name: '沙箱', href: '/dashboard/observability/sandboxes', icon: Box, badge: 'Beta' },
-    ],
-  },
-  {
-    title: 'CDN',
-    items: [
-      { name: '边缘请求', href: '/dashboard/observability/edge-requests', icon: Network },
-      { name: '快速数据传输', href: '/dashboard/observability/fast-data-transfer', icon: ArrowRightLeft },
-      { name: '图像优化', href: '/dashboard/observability/image-optimization', icon: ImageIcon },
-      { name: 'ISR', href: '/dashboard/observability/isr', icon: RefreshCw },
-      { name: '外部重写', href: '/dashboard/observability/external-rewrites', icon: Repeat },
-      { name: '微前端', href: '/dashboard/observability/microfrontends', icon: LayoutGrid },
-    ],
-  },
-  {
-    title: '服务',
-    items: [
-      { name: 'AI', href: '/dashboard/observability/ai', icon: Sparkles },
-      { name: 'Blob', href: '/dashboard/observability/blob', icon: Database },
-    ],
-  },
-];
+import { sidebarGroups } from '@/config/observability';
 
 export function ObservabilitySidebar() {
   const pathname = usePathname();
@@ -105,5 +47,49 @@ export function ObservabilitySidebar() {
         ))}
       </div>
     </nav>
+  );
+}
+
+export function ObservabilityMobileNav() {
+  const pathname = usePathname();
+
+  return (
+    <div className="md:hidden space-y-6 py-4">
+      {sidebarGroups.map((group, index) => (
+        <div key={index}>
+          {group.title && (
+            <h3 className="mb-2 px-2 text-xs font-semibold text-muted-foreground tracking-wider uppercase">
+              {group.title}
+            </h3>
+          )}
+          <div className="space-y-1">
+            {group.items.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  scroll={false}
+                  className={cn(
+                    'group flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-colors',
+                    isActive
+                      ? 'bg-secondary text-foreground'
+                      : 'text-muted-foreground hover:bg-secondary/50 hover:text-foreground'
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span>{item.name}</span>
+                  {item.badge && (
+                    <span className="ml-auto rounded-full bg-pink-500/10 px-1.5 py-0.5 text-[10px] font-medium text-pink-500">
+                      {item.badge}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
