@@ -47,7 +47,8 @@
 :root {
   --ds-background-100: 0 0% 4%;
   --header-bg: #ffffff;
-  --radius: 0.375rem; /* 6px */
+  /* TODO 圆角大小, 与导航项的圆角大小保持一致. */
+  --radius: 6px;
   --background: #ffffff;
   --foreground: #000000;
   --card: #ffffff;
