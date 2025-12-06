@@ -72,6 +72,17 @@ const navItems: NavItem[] = [
   },
 ];
 
+// TODO: 考虑是否需要根据导航项的宽度动态调整下划线的宽度, rounded-t-sm 是导航项的圆角大小.
+function NavUnderline() {
+  return (
+    <motion.div
+      layoutId="nav-underline"
+      className="absolute left-0 right-0 bottom-[-9px] h-[4px] bg-foreground z-10"
+      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+    />
+  );
+}
+
 function NavItemDropdown({ item, isActive, baseClasses }: { item: NavItem, isActive: boolean, baseClasses: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -102,13 +113,7 @@ function NavItemDropdown({ item, isActive, baseClasses }: { item: NavItem, isAct
         {item.icon}
         <span>{item.name}</span>
         <ChevronDown className="h-3 w-3 opacity-50 ml-0.5" />
-        {isActive && (
-          <motion.div
-            layoutId="nav-underline"
-            className="absolute left-0 right-0 bottom-[-9px] h-[4px] bg-foreground rounded-t-sm z-10"
-            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-          />
-        )}
+        {isActive && <NavUnderline />}
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="start" 
@@ -147,7 +152,7 @@ export function NavTabs() {
   const { isFullWidth } = useLayoutSettings();
 
   return (
-    <div className="border-b bg-[var(--header-bg)] overflow-x-auto scrollbar-hide">
+    <div className="border-b bg-(--header-bg) overflow-x-auto scrollbar-hide">
       <div className={cn(
         "flex h-12 items-center gap-2 transition-all duration-300 ease-in-out", // Changed gap-1 to gap-2
         isFullWidth 
@@ -180,13 +185,7 @@ export function NavTabs() {
             >
               {item.icon}
               <span>{item.name}</span>
-              {isActive && (
-                <motion.div
-                  layoutId="nav-underline"
-                  className="absolute left-0 right-0 bottom-[-9px] h-[4px] bg-foreground rounded-t-sm z-10"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
+              {isActive && <NavUnderline />}
             </Link>
           );
         })}
