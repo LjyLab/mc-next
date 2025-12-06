@@ -1,18 +1,21 @@
 'use client';
 
+import * as React from "react"
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useLayoutSettings } from '@/hooks/use-layout-settings';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
 import { 
-  ChevronDown, 
   LayoutDashboard, 
   Rocket, 
   Blocks, 
@@ -25,13 +28,12 @@ import {
   Users,
   CreditCard,
   List,
-  LineChart
+  LineChart,
 } from 'lucide-react';
-import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 type NavChildItem = 
-  | { type: 'item'; name: string; href: string; icon?: React.ReactNode }
+  | { type: 'item'; name: string; href: string; icon?: React.ReactNode; description?: string }
   | { type: 'separator' };
 
 type NavItem = {
@@ -48,10 +50,28 @@ const navItems: NavItem[] = [
     href: '/dashboard/deployments',
     icon: <Rocket className="h-4 w-4" />,
     children: [
-      { type: 'item', name: '所有部署', href: '/dashboard/deployments', icon: <List className="h-4 w-4" /> },
+      { 
+        type: 'item', 
+        name: '所有部署', 
+        href: '/dashboard/deployments', 
+        icon: <List className="h-4 w-4" />,
+        description: "查看所有环境的部署历史记录和状态"
+      },
       { type: 'separator' },
-      { type: 'item', name: '生产环境', href: '/dashboard/deployments/production', icon: <CheckCircle className="h-4 w-4" /> },
-      { type: 'item', name: '预览环境', href: '/dashboard/deployments/preview', icon: <Eye className="h-4 w-4" /> },
+      { 
+        type: 'item', 
+        name: '生产环境', 
+        href: '/dashboard/deployments/production', 
+        icon: <CheckCircle className="h-4 w-4" />,
+        description: "查看生产环境的当前状态和部署详情"
+      },
+      { 
+        type: 'item', 
+        name: '预览环境', 
+        href: '/dashboard/deployments/preview', 
+        icon: <Eye className="h-4 w-4" />,
+        description: "查看预览环境的部署和测试情况"
+      },
     ]
   },
   { name: '集成', href: '/dashboard/integrations', icon: <Blocks className="h-4 w-4" /> },
@@ -64,131 +84,158 @@ const navItems: NavItem[] = [
     href: '/dashboard/settings',
     icon: <Settings className="h-4 w-4" />,
     children: [
-      { type: 'item', name: '通用设置', href: '/dashboard/settings', icon: <Settings className="h-4 w-4" /> },
+      { 
+        type: 'item', 
+        name: '通用设置', 
+        href: '/dashboard/settings', 
+        icon: <Settings className="h-4 w-4" />,
+        description: "管理项目的基本配置和首选项"
+      },
       { type: 'separator' },
-      { type: 'item', name: '团队', href: '/dashboard/settings/teams', icon: <Users className="h-4 w-4" /> },
-      { type: 'item', name: '计费', href: '/dashboard/settings/billing', icon: <CreditCard className="h-4 w-4" /> },
+      { 
+        type: 'item', 
+        name: '团队', 
+        href: '/dashboard/settings/teams', 
+        icon: <Users className="h-4 w-4" />,
+        description: "管理团队成员和权限设置"
+      },
+      { 
+        type: 'item', 
+        name: '计费', 
+        href: '/dashboard/settings/billing', 
+        icon: <CreditCard className="h-4 w-4" />,
+        description: "查看用量统计和管理订阅方案"
+      },
     ]
   },
 ];
 
-// TODO: 考虑是否需要根据导航项的宽度动态调整下划线的宽度, rounded-t-sm 是导航项的圆角大小.
 function NavUnderline() {
   return (
     <motion.div
       layoutId="nav-underline"
-      className="absolute left-0 right-0 bottom-[-9px] h-[4px] bg-foreground z-10"
+      className="absolute left-0 right-0 -bottom-[1px] h-[2px] bg-foreground z-10"
       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
     />
   );
 }
 
-function NavItemDropdown({ item, isActive, baseClasses }: { item: NavItem, isActive: boolean, baseClasses: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const pathname = usePathname();
-
-  const handleMouseEnter = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-    setIsOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setIsOpen(false);
-    }, 300);
-  };
-
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a"> & { icon?: React.ReactNode; href: string }
+>(({ className, title, children, icon, href, ...props }, ref) => {
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen} modal={false}>
-      <DropdownMenuTrigger 
-        className={cn(baseClasses, "outline-none gap-1 data-[state=open]:bg-zinc-200 dark:data-[state=open]:bg-zinc-800 data-[state=open]:text-foreground")}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={(e) => e.preventDefault()}
-      >
-        {item.icon}
-        <span>{item.name}</span>
-        <ChevronDown className="h-3 w-3 opacity-50 ml-0.5" />
-        {isActive && <NavUnderline />}
-      </DropdownMenuTrigger>
-      <DropdownMenuContent 
-        align="start" 
-        sideOffset={8}
-        className="w-48"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {item.children?.map((child, index) => {
-          if (child.type === 'separator') {
-            return <DropdownMenuSeparator key={index} />;
-          }
-          const isChildActive = pathname === child.href;
-          return (
-            <DropdownMenuItem key={child.href} asChild>
-              <Link 
-                href={child.href} 
-                className={cn(
-                  "w-full cursor-pointer flex items-center gap-2", 
-                  isChildActive && "bg-accent"
-                )}
-              >
-                {child.icon}
-                <span>{child.name}</span>
-              </Link>
-            </DropdownMenuItem>
-          );
-        })}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
+    <li>
+      <NavigationMenuLink asChild>
+        <Link
+          ref={ref}
+          href={href}
+          className={cn(
+            // TODO: 在这里调整样式
+            "block select-none space-y-0.5 rounded-lg p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+            {icon}
+            {title}
+          </div>
+          {children && (
+            <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+              {children}
+            </p>
+          )}
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  )
+})
+ListItem.displayName = "ListItem"
 
 export function NavTabs() {
   const pathname = usePathname();
   const { isFullWidth } = useLayoutSettings();
+  const isMobile = useIsMobile();
 
   return (
-    <div className="border-b bg-(--header-bg) overflow-x-auto scrollbar-hide">
+    <div className="border-b bg-[var(--header-bg)]">
       <div className={cn(
-        "flex h-12 items-center gap-2 transition-all duration-300 ease-in-out", // Changed gap-1 to gap-2
+        "flex h-12 items-center transition-all duration-300 ease-in-out",
         isFullWidth 
           ? "w-full px-4 sm:px-6" 
           : "w-full max-w-7xl mx-auto px-4 sm:px-6"
       )}>
-        {navItems.map((item) => {
-          // Check if item itself is active or any of its children
-          const isChildActive = item.children?.some(child => 
-            child.type === 'item' && pathname === child.href
-          );
-          const isActive = pathname === item.href || isChildActive;
-          
-          const baseClasses = cn(
-            "text-sm font-medium rounded-md px-3 h-8 flex items-center transition-all relative whitespace-nowrap gap-2",
-            isActive
-              ? "text-foreground"
-              : "text-muted-foreground hover:text-foreground hover:bg-zinc-200 dark:hover:bg-zinc-800"
-          );
+        <div className="flex items-center">
+            {navItems.map((item) => {
+              // Check if item itself is active or any of its children
+              const isActive = pathname === item.href || item.children?.some(child => 
+                child.type === 'item' && pathname === child.href
+              );
 
-          if (item.children) {
-            return <NavItemDropdown key={item.href} item={item} isActive={isActive || false} baseClasses={baseClasses} />;
-          }
+              // Pure text/icon style, no background, mimics original tabs
+              const triggerClass = cn(
+                "group inline-flex h-9 w-max items-center justify-center px-3 text-sm font-medium transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50",
+                "bg-transparent hover:bg-accent/50 focus:bg-accent/50 active:bg-accent/50 data-[state=open]:bg-accent/50 data-[active]:bg-accent/50",
+                "rounded-md",
+                isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              );
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={baseClasses}
-            >
-              {item.icon}
-              <span>{item.name}</span>
-              {isActive && <NavUnderline />}
-            </Link>
-          );
-        })}
+              if (item.children) {
+                return (
+                  <div key={item.href} className="relative flex h-12 items-center">
+                    <NavigationMenu viewport={!isMobile} delayDuration={0}>
+                      <NavigationMenuList>
+                        <NavigationMenuItem>
+                          <NavigationMenuTrigger className={triggerClass}>
+                            <div className="flex items-center gap-2">
+                              {item.icon}
+                              <span>{item.name}</span>
+                            </div>
+                          </NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <ul className="grid w-[260px] gap-1 p-0 md:w-[340px] md:grid-cols-2">
+                              {item.children.map((child) => {
+                                if (child.type === 'separator') {
+                                  return null; 
+                                }
+                                
+                                const isChildActive = pathname === child.href;
+                                return (
+                                  <ListItem
+                                    key={child.href}
+                                    href={child.href}
+                                    title={child.name}
+                                    icon={child.icon}
+                                    className={cn(isChildActive && "bg-accent/50")}
+                                  >
+                                    {child.description}
+                                  </ListItem>
+                                );
+                              })}
+                            </ul>
+                          </NavigationMenuContent>
+                        </NavigationMenuItem>
+                      </NavigationMenuList>
+                    </NavigationMenu>
+                    {isActive && <NavUnderline />}
+                  </div>
+                );
+              }
+
+              return (
+                <div key={item.href} className="relative flex h-12 items-center">
+                  <Link href={item.href} className={cn(triggerClass, "cursor-pointer")}>
+                    <div className="flex items-center gap-2">
+                      {item.icon}
+                      <span>{item.name}</span>
+                    </div>
+                  </Link>
+                  {isActive && <NavUnderline />}
+                </div>
+              );
+            })}
+        </div>
       </div>
     </div>
   );
